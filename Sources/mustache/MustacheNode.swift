@@ -88,7 +88,7 @@ public enum MustacheNode {
   ///       {{> user}}
   ///     {{/names}}
   ///
-  case Partial(String)
+  case Partial(String, String?)
 }
 
 
@@ -156,8 +156,8 @@ public extension MustacheNode {
           }
         }
       
-      case .Partial(let name):
-        guard let partial = ctx.retrievePartial(name: name) else { return }
+      case .Partial(let name, let basePath):
+        guard let partial = ctx.retrievePartial(name: name, basePath: basePath) else { return }
         partial.render(inContext: ctx)
     }
   }
